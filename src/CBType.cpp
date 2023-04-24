@@ -108,4 +108,30 @@ namespace ccb {
         if(index >= structElems.size()) return "";
         return structElems[index].second;
     }
+
+    void FunctionType::dump(std::ostream &out) {
+        out << retType->getCKeyWord();
+        out << " (";
+        size_t i = 0, size = argsTypes.size() - 1;
+        for(auto type : argsTypes) {
+            if(i < size) {
+                out << type->getCKeyWord();
+                out << ", ";
+            }
+            else
+                out << type->getCKeyWord();
+            i++;
+        }
+        out<<")";
+    }
+
+    CType *FunctionType::getTypeByIndex(size_t i) {
+        if(i >= argsTypes.size())
+            return nullptr;
+        return argsTypes[i];
+    }
+
+    CType *FunctionType::Create(CType *ret, const std::vector<CType *> &args) {
+        return new FunctionType(ret, args);
+    }
 }

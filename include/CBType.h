@@ -27,6 +27,7 @@ namespace ccb{
     class ArrayType;
     class PointerType;
     class StructType;
+    class FunctionType;
 //    class EnumType;
 //    class FuncPtrType;
 
@@ -284,6 +285,30 @@ namespace ccb{
     private:
         std::vector<std::pair<CType*, std::string>> structElems;
         std::string structName;
+    };
+    ////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////
+    //// C语言函数类型
+    class FunctionType : public CType {
+    public:
+        typedef std::vector<CType*>::iterator arg_iterator;
+    private:
+        FunctionType(CType *ret, const std::vector<CType *> &args) : CType(FuncTy, ""), retType(ret), argsTypes(args) {};
+    public:
+        size_t typeSize() override { return 0; }
+        void dump(std::ostream &out = std::cout) override;
+    public:
+        CType* getRetType() const { return retType; }
+        arg_iterator arg_begin() { return argsTypes.begin(); }
+        arg_iterator arg_end() { return argsTypes.end(); }
+
+        CType* getTypeByIndex(size_t i);
+    public:
+        static CType* Create(CType* ret, const std::vector<CType*>& args);
+    private:
+        std::vector<CType*> argsTypes;
+        CType* retType;
     };
     ////////////////////////////////////////////////////////////////////////
 }

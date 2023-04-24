@@ -83,4 +83,8 @@ int main() {
     st->addElemType(CType::getIntTy(), "count");
     st->addElemType(CType::getPointerTy(st), "next");
     st->dump(cout);
+
+    cout<<"===================================\n";
+    FunctionType* func = dynamic_cast<FunctionType*>(FunctionType::Create(CType::getVoidTy(), {CType::getIntTy(), CType::getPointerTy(CType::getIntTy())}));
+    func->dump(cout);
 }

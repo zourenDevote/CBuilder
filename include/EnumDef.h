@@ -31,7 +31,30 @@ namespace ccb {
         /* 枚举类型 */
         EnumTy,
         /* 函数指针类型 */
-        FuncPtrTy
+        FuncPtrTy,
+        /* 函数类型 */
+        FuncTy
+    };
+
+    enum OperatorID {
+        OpAdd,      /// T ==> +
+        OpSub,      /// T ==> -
+        OpDiv,      /// T ==> /
+        OpMul,      /// T ==> *
+        OpGt,       /// T ==> >
+        OpGe,       /// T ==> >=
+        OpLt,       /// T ==> <
+        OpLe,       /// T ==> <=
+        OpRm,       /// T ==> >>
+        OpLm,       /// T ==> <<
+        OpEq,       /// T ==> ==
+        OpNe,       /// T ==> !=
+        OpBitAnd,   /// T ==> &
+        OpBitOr,    /// T ==> |
+        OpBitNot,   /// T ==> !
+        OpAnd,      /// T ==> &&
+        OpOr,       /// T ==> ||
+        OpBitEor,   /// T ==> ^
     };
 
 }
