@@ -14,23 +14,23 @@ namespace ccb {
     class CVariable;
 
     ///> 语句部分
-    class CStatement;
+    class CStatement{};
     class CDeclareStatement;/// T ==> example: int a
-    class CAssignStatement; /// T ==> example: a = b
-    class CExprStatement;   /// T ==> example: a + b
-    class CForStatement;    /// T ==> example: for(int i = 0 ; i < 10 ; i++) {...}
-    class CWhileStatement;  /// T ==> example: while(i < xxx) {...}
-    class CSwitchStatement; /// T ==> example: switch(xxx) case:{...} case:{...} default:{...}
-    class CIfStatement;     /// T ==> example: if(xxx) {...}
-    class CElseStatement;   /// T ==> example: else {...}
-    class CCondStatement;   /// T ==> example: a == 0?1:0;
+//    class CAssignStatement; /// T ==> example: a = b
+//    class CExprStatement;   /// T ==> example: a + b
+//    class CForStatement;    /// T ==> example: for(int i = 0 ; i < 10 ; i++) {...}
+//    class CWhileStatement;  /// T ==> example: while(i < xxx) {...}
+//    class CSwitchStatement; /// T ==> example: switch(xxx) case:{...} case:{...} default:{...}
+//    class CIfStatement;     /// T ==> example: if(xxx) {...}
+//    class CElseStatement;   /// T ==> example: else {...}
+//    class CCondStatement;   /// T ==> example: a == 0?1:0;
 
 
     class CFunction {
     public:
         typedef std::vector<CVariable*>::iterator arg_var_iterator;
 
-        CFunction(FunctionType* functy, const std::string& name, CModule* parent, const std::vector<CVariable>& args);
+        CFunction(FunctionType* functy, const std::string& name, CModule* parent, const std::vector<CVariable*>& args);
         void dump(std::ostream& out = std::cout);
 
     public:
@@ -45,6 +45,14 @@ namespace ccb {
 
         void setFuncType(FunctionType* functy) { funcTy = functy; }
         FunctionType* getFuncType() const { return funcTy; }
+
+        void setFuncScope(CScope* scope) {
+            if(scope) {
+                funcScope = scope;
+                setExtern(false);
+            }
+        }
+        CScope* getFuncScope() const { return funcScope; }
 
         const std::vector<CVariable*>& getArgs() const { return argVars; }
         CVariable* getArg(size_t index);
@@ -64,7 +72,8 @@ namespace ccb {
 
     class CScope{
     public:
-        CScope(CScope *parent);
+        CScope(CScope *parent = nullptr);
+        ~CScope();
         CVariable *findSymbol(const std::string& name);
         void addSymbol(CVariable *var);
         void addStatement(CStatement *stmt);
@@ -84,9 +93,10 @@ namespace ccb {
         const std::string& getVarName() const { return varName; }
     public:
         static CVariable* Create(CType* ty, const std::string& name);
+        void dump(std::ostream& out = std::cout);
     private:
         CType* varTy;
-        const std::string& varName;
+        std::string varName;
     };
 
     class CGlobalVariable : public CVariable{

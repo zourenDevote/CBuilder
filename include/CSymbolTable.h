@@ -6,7 +6,7 @@
 #define CCODEBUILDER_CSYMBOLTABLE_H
 
 #include "CBType.h"
-#include <set>
+#include <map>
 
 
 namespace ccb {
@@ -19,7 +19,7 @@ namespace ccb {
         void addSymbol(CVariable* var);
         CVariable* getVar(const std::string& name);
     private:
-        std::set<CVariable*> varSet;
+        std::map<std::string, CVariable*> symMap;
     };
 }
 

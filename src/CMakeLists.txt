@@ -1,6 +1,9 @@
 
 add_library(CBuilderLib
-        CBType.cpp)
+        CBType.cpp
+        CModule.cpp
+        CSymbolTable.cpp
+        CValue.cpp)
 
 target_include_directories(CBuilderLib
         PUBLIC ${PROJECT_SOURCE_DIR}/include)
