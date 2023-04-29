@@ -13,9 +13,6 @@ namespace ccb {
     class CScope;
     class CVariable;
 
-    ///> 语句部分
-    class CStatement{};
-    class CDeclareStatement;/// T ==> example: int a
 //    class CAssignStatement; /// T ==> example: a = b
 //    class CExprStatement;   /// T ==> example: a + b
 //    class CForStatement;    /// T ==> example: for(int i = 0 ; i < 10 ; i++) {...}
@@ -68,40 +65,6 @@ namespace ccb {
         std::string funcName;            ///> 函数名
         FunctionType* funcTy;            ///> 函数类型
         std::vector<CVariable*> argVars; ///> 形参列表
-    };
-
-    class CScope{
-    public:
-        CScope(CScope *parent = nullptr);
-        ~CScope();
-        CVariable *findSymbol(const std::string& name);
-        void addSymbol(CVariable *var);
-        void addStatement(CStatement *stmt);
-        void dump(std::ostream& out = std::cout);
-    public:
-        static CScope* Create(CScope* parent = nullptr);
-    private:
-        CSymbolTable *symTab;                   ///> 作用域符号表
-        CScope *parentScope;                    ///> 父作用域
-        std::vector<CStatement*> statements;    ///> 语句列表
-    };
-
-    class CVariable {
-    public:
-        CVariable(CType* ty, const std::string& name);
-        CType* getType() const { return varTy; }
-        const std::string& getVarName() const { return varName; }
-    public:
-        static CVariable* Create(CType* ty, const std::string& name);
-        void dump(std::ostream& out = std::cout);
-    private:
-        CType* varTy;
-        std::string varName;
-    };
-
-    class CGlobalVariable : public CVariable{
-    public:
-        CGlobalVariable(CType* ty, const std::string& name);
     };
 
 }

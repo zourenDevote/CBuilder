@@ -57,6 +57,18 @@ namespace ccb {
         OpBitEor,   /// T ==> ^
     };
 
+    enum StmtID {
+        AssignID,   /// T ==> a = b;                    赋值语句
+        IfId,       /// T ==> if(cond) {...}            条件语句
+        ElseId,     /// T ==> else {...}                条件语句
+        ForId,      /// T ==> for(xxx;xxx;xxx) {...}    for循环语句
+        WhileId,    /// T ==> while(xxx) {...}          while循环语句
+        SwitchId,   /// T ==> switch(xxx) {...}         switch语句
+        CaseId,     /// T ==> case: {...}               case语句
+        CallId,     /// T ==> func(xxx)                 函数调用语句
+        ExprId,     /// T ==> a + b                     表达式语句
+    };
+
 }
 
 #endif //CCODEBUILDER_ENUMDEF_H
